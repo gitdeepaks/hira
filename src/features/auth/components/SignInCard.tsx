@@ -16,9 +16,12 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { loginSchema } from "./schema";
+import { loginSchema } from "../schema";
+import { useLogin } from "../api/useLogin";
 
 export const SignInCard = () => {
+  const { mutate } = useLogin();
+
   const form = useForm<z.infer<typeof loginSchema>>({
     defaultValues: {
       email: "",
@@ -28,7 +31,7 @@ export const SignInCard = () => {
   });
 
   const onSubmit = (data: z.infer<typeof loginSchema>) => {
-    console.log({ data });
+    mutate({ json: data });
   };
   return (
     <Card className="w-full h-full md:w-[487px] border-none shadow-none">
