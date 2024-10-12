@@ -1,23 +1,25 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { useCurrent } from "@/features/auth/api/useCurrent";
+import { useLogout } from "@/features/auth/api/useLogout";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Home() {
+  const { data, isLoading } = useCurrent();
+  const router = useRouter();
+  const { mutate: logout } = useLogout();
+
+  useEffect(() => {
+    if (!data && !isLoading) {
+      router.push("/sign-in");
+    }
+  }, [data, isLoading, router]);
   return (
-    <div className="flex h-screen items-center justify-center gap-4 flex-col">
-      <Button variant="primary">primary123</Button>
-      <Button variant="destructive">destructive</Button>
-      <Button variant="outline">outline</Button>
-      <Button variant="secondary">secondary</Button>
-      <Button variant="ghost">ghost</Button>
-      <Button variant="muted">muted</Button>
-      <Button variant="teritary">teritary</Button>
-      <Button variant="primary" size="sm">
-        small
-      </Button>
-      <Button variant="primary" size="lg">
-        large
-      </Button>
-      <Input />
+    <div className="">
+      Only Visble to authenticated users.
+      <Button onClick={() => logout()}>Logout</Button>
     </div>
   );
 }
