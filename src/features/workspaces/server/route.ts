@@ -17,7 +17,7 @@ const app = new Hono().post(
       return c.json({ error: "Unauthorized" }, 401);
     }
 
-    const { name } = c.req.valid("json");
+    const { name, image } = c.req.valid("json");
 
     const workspace = await databases.createDocument(
       DATABASE_ID,
