@@ -1,9 +1,19 @@
 import { DashboardNav } from "@/components/DashboardNav";
 import { SideBar } from "@/components/SideBar";
+import { Metadata } from "next";
 import React from "react";
 interface layoutProps {
   children: React.ReactNode;
 }
+
+export const metadata: Metadata = {
+  title: "Hira",
+  description:
+    "Hira is a project management tool for teams to track their work and collaborate.",
+  icons: {
+    icon: "/logo.svg",
+  },
+};
 
 const layout = ({ children }: layoutProps) => {
   return (
