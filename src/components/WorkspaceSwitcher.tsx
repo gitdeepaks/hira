@@ -10,9 +10,18 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { WorkspaceAvatar } from "@/features/workspaces/components/WorkspaceAvatar";
+import { useRouter } from "next/navigation";
+import { useWorkSpaceId } from "@/features/workspaces/hooks/useWorkSpace";
 
 export const WorkspaceSwitcher = () => {
+  const workspaceId = useWorkSpaceId();
+
   const { data: workspaces } = useGetWorkSpaces();
+  const router = useRouter();
+
+  const onSelectWorkspace = (workspaceId: string) => {
+    router.push(`/workspaces/${workspaceId}`);
+  };
 
   return (
     <div className="flex flex-col gap-y-2">
@@ -20,11 +29,12 @@ export const WorkspaceSwitcher = () => {
         <p className="text-xs uppercase text-neutral-500">WorkSpaces</p>
         <RiAddCircleFill className="size-5 text-neutral-500 cursor-pointer hover:opacity-75 transition" />
       </div>
-      <Select>
+      <Select onValueChange={onSelectWorkspace} value={workspaceId}>
         <SelectTrigger className="w-full bg-neutral-200 font-medium p-1">
           <SelectValue placeholder="Select a workspace" />
         </SelectTrigger>
         <SelectContent>
+          {/* @ts-expect-error Server Component */}
           {workspaces?.documents.map((workspace) => (
             <SelectItem key={workspace.$id} value={workspace.$id}>
               <div className="flex justify-start items-center gap-3 font-medium">
