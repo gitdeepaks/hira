@@ -1,5 +1,6 @@
 import { DashboardNav } from "@/components/DashboardNav";
 import { SideBar } from "@/components/SideBar";
+import { CreateWorkSpaceModal } from "@/features/workspaces/components/CreateWorkSpaceModal";
 import { Metadata } from "next";
 import React from "react";
 interface layoutProps {
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
 const layout = ({ children }: layoutProps) => {
   return (
     <div className="min-h-screen">
+      <CreateWorkSpaceModal />
       <div className="flex w-full h-full">
         <div className="fixed left-0 top-0 hidden lg:block lg:w-[264px] h-full overflow-y-auto">
           <SideBar />
