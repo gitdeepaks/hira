@@ -127,15 +127,32 @@ export const CreateWorkspaceForm = ({ onCancel }: CreateWorkspaceFormProps) => {
                           disabled={isPending}
                           onChange={handleImageChange}
                         />
-                        <Button
-                          type="button"
-                          disabled={isPending}
-                          variant="teritary"
-                          className="w-fit"
-                          onClick={() => inputRef.current?.click()}
-                        >
-                          Upload Image
-                        </Button>
+                        {field.value ? (
+                          <Button
+                            type="button"
+                            disabled={isPending}
+                            variant="destructive"
+                            className="w-fit"
+                            onClick={() => {
+                              field.onChange(null);
+                              if (inputRef.current) {
+                                inputRef.current.value = "";
+                              }
+                            }}
+                          >
+                            Remove Image
+                          </Button>
+                        ) : (
+                          <Button
+                            type="button"
+                            disabled={isPending}
+                            variant="teritary"
+                            className="w-fit"
+                            onClick={() => inputRef.current?.click()}
+                          >
+                            Upload Image
+                          </Button>
+                        )}
                       </div>
                     </div>
                   </div>
